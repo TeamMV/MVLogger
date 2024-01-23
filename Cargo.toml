@@ -1,0 +1,23 @@
+[package]
+name = "mvlogger"
+version = "0.1.0"
+edition = "2021"
+license-file = "LICENSE"
+rust-version = "1.75.0"
+authors = [
+    "Maxim Savenkov",
+    "Julian Hohenhausen"
+]
+repository = "https://github.com/TeamMV/MVLogger"
+keywords = [
+    "utils",
+    "mvteam",
+    "mvutils"
+]
+description = "A utility crate made from commonly used functions in my projects."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log ="0.4.20"
+mvutils = "0.4.1"
