@@ -14,7 +14,7 @@ keywords = [
     "mvteam",
     "mvlogger"
 ]
-description = "A utility crate made from commonly used functions in my projects."
+description = "A logger crate used for TeamMV projects."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
