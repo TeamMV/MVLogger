@@ -1,6 +1,6 @@
 use std::io::Write;
 use std::sync::Mutex;
-use log::{Level, Log, Metadata, Record};
+use log::{Log, Metadata, Record};
 use mvutils::utils::{Recover, Time};
 use crate::time::convert_epoch_to_datetime;
 
@@ -22,7 +22,7 @@ impl Log for Logger {
     }
 
     fn log(&self, record: &Record) {
-        self.output.lock().recover().write_all(format!("[{}] <{}> {}\n", convert_epoch_to_datetime(u128::time_millis()), record.metadata().level(), record.args().to_string()).as_bytes()).unwrap()
+        self.output.lock().recover().write_all(format!("[{}] <{}> {}\n", convert_epoch_to_datetime(u128::time_millis()), record.metadata().level(), record.args()).as_bytes()).unwrap()
     }
 
     fn flush(&self) {
