@@ -1,6 +1,5 @@
 pub(crate) fn convert_epoch_to_datetime(epoch_millis: u128) -> String {
     let seconds_since_epoch = epoch_millis / 1000;
-    //let millis = epoch_millis % 1000;
     let seconds = seconds_since_epoch % 60;
     let minutes = (seconds_since_epoch / 60) % 60;
     let hours = (seconds_since_epoch / 3_600) % 24;
