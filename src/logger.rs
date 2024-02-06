@@ -1,11 +1,11 @@
-use std::io::Write;
-use std::sync::Mutex;
+use crate::time::convert_epoch_to_datetime;
 use log::{Log, Metadata, Record};
 use mvutils::utils::{Recover, Time};
-use crate::time::convert_epoch_to_datetime;
+use std::io::Write;
+use std::sync::Mutex;
 
 pub(crate) struct Logger {
-    output: Box<Mutex<dyn Write + 'static>>
+    output: Box<Mutex<dyn Write + 'static>>,
 }
 
 impl Logger {
@@ -22,7 +22,19 @@ impl Log for Logger {
     }
 
     fn log(&self, record: &Record) {
-        self.output.lock().recover().write_all(format!("[{} UTC] <{}> {}\n", convert_epoch_to_datetime(u128::time_millis()), record.metadata().level(), record.args()).as_bytes()).unwrap()
+        self.output
+            .lock()
+            .recover()
+            .write_all(
+                format!(
+                    "[{} UTC] <{}> {}\n",
+                    convert_epoch_to_datetime(u128::time_millis()),
+                    record.metadata().level(),
+                    record.args()
+                )
+                .as_bytes(),
+            )
+            .unwrap()
     }
 
     fn flush(&self) {

@@ -18,7 +18,15 @@ pub(crate) fn convert_epoch_to_datetime(epoch_millis: u128) -> String {
 
     let (month, day) = get_month_and_day(days_remaining as u32, year);
 
-    format!("{:02}/{:02}/{:02} {:02}:{:02}:{:02}", day, month, year % 100, hours, minutes, seconds)
+    format!(
+        "{:02}/{:02}/{:02} {:02}:{:02}:{:02}",
+        day,
+        month,
+        year % 100,
+        hours,
+        minutes,
+        seconds
+    )
 }
 
 fn is_leap_year(year: i32) -> bool {
@@ -27,7 +35,20 @@ fn is_leap_year(year: i32) -> bool {
 
 fn get_month_and_day(mut days: u32, year: i32) -> (u32, u32) {
     let mut month = 1;
-    let days_in_month = [31, if is_leap_year(year) { 29 } else { 28 }, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let days_in_month = [
+        31,
+        if is_leap_year(year) { 29 } else { 28 },
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+    ];
     for &dim in days_in_month.iter() {
         if days < dim {
             break;
