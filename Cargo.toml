@@ -20,4 +20,4 @@ description = "A logger crate used for TeamMV projects."
 
 [dependencies]
 log ="0.4.20"
-mvutils = "0.5.3"
+mvutils = "0.5.5"

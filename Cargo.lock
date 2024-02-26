@@ -65,7 +65,7 @@ checksum = "b5e6163cb8c49088c2c36f57875e58ccd8c87c7427f7fbd50ea6710b2f3f2e8f"
 
 [[package]]
 name = "mvlogger"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "log",
  "mvutils",
@@ -73,9 +73,9 @@ dependencies = [
 
 [[package]]
 name = "mvutils"
-version = "0.5.2"
+version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "649c7eacee394cf06397e2896aad481fb30cd21d57eb353899620f59101447a9"
+checksum = "a14ed6f67c3f3fced66e151e756ace4d01b117eeff1070da0446f99d1d782fc3"
 dependencies = [
  "bytebuffer",
  "hashbrown",
