@@ -1,5 +1,5 @@
 use crate::time::convert_epoch_to_datetime;
-use log::{Log, Metadata, Record};
+use log::{Level, Log, Metadata, Record};
 use mvutils::utils::{Recover, Time};
 use std::io::Write;
 use std::sync::Mutex;
@@ -22,12 +22,20 @@ impl Log for Logger {
     }
 
     fn log(&self, record: &Record) {
+        let color = match record.level() {
+            Level::Error => "\x1B[91m",
+            Level::Warn => "\x1B[93m",
+            Level::Info => "\x1B[0m",
+            Level::Debug => "\x1B[37m",
+            Level::Trace => "\x1B[90m",
+        };
+        let reset = "\x1B[0m";
         self.output
             .lock()
             .recover()
             .write_all(
                 format!(
-                    "[{} UTC] <{}> {}\n",
+                    "{color}[{} UTC] <{}> {}{reset}\n",
                     convert_epoch_to_datetime(u128::time_millis()),
                     record.metadata().level(),
                     record.args()
