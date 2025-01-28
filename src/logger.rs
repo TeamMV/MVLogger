@@ -25,25 +25,25 @@ impl Log for Logger {
 
     fn log(&self, record: &Record) {
         if self.formatted {
-        let color = match record.level() {
-            Level::Error => "\x1B[91m",
-            Level::Warn => "\x1B[93m",
-            Level::Info => "\x1B[0m",
-            Level::Debug => "\x1B[37m",
-            Level::Trace => "\x1B[90m",
-        };
-        let reset = "\x1B[0m";
-        self.output
-            .lock()
-            .recover()
-            .write_all(
-                format!(
-                    "{color}[{} UTC] <{}> {}{reset}\n",
-                    convert_epoch_to_datetime(u128::time_millis()),
-                    record.metadata().level(),
-                    record.args()
+            let color = match record.level() {
+                Level::Error => "\x1B[91m",
+                Level::Warn => "\x1B[93m",
+                Level::Info => "\x1B[0m",
+                Level::Debug => "\x1B[37m",
+                Level::Trace => "\x1B[90m",
+            };
+            let reset = "\x1B[0m";
+            self.output
+                .lock()
+                .recover()
+                .write_all(
+                    format!(
+                        "{color}[{} UTC] <{}> {}{reset}\n",
+                        convert_epoch_to_datetime(u128::time_millis()),
+                        record.metadata().level(),
+                        record.args()
                     )
-                        .as_bytes(),
+                    .as_bytes(),
                 )
                 .unwrap()
         } else {
