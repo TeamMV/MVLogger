@@ -1,6 +1,6 @@
 [package]
 name = "mvlogger"
-version = "0.2.5"
+version = "0.3.0"
 edition = "2021"
 license-file = "LICENSE"
 rust-version = "1.75.0"
@@ -16,8 +16,6 @@ keywords = [
 ]
 description = "A logger crate used for TeamMV projects."
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 log ="0.4.20"
-mvutils = "0.5.5"
+mvutils = "1.1.7"

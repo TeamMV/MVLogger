@@ -6,12 +6,14 @@ use std::sync::Mutex;
 
 pub(crate) struct Logger {
     output: Box<Mutex<dyn Write + 'static>>,
+    formatted: bool,
 }
 
 impl Logger {
-    pub(crate) fn new(output: impl Write + 'static) -> Self {
+    pub(crate) fn new(output: impl Write + 'static, formatted: bool) -> Self {
         Logger {
             output: Box::new(Mutex::new(output)),
+            formatted,
         }
     }
 }
@@ -22,19 +24,27 @@ impl Log for Logger {
     }
 
     fn log(&self, record: &Record) {
-        self.output
-            .lock()
-            .recover()
-            .write_all(
-                format!(
-                    "[{} UTC] <{}> {}\n",
-                    convert_epoch_to_datetime(u128::time_millis()),
-                    record.metadata().level(),
-                    record.args()
+        if self.formatted {
+            self.output
+                .lock()
+                .recover()
+                .write_all(
+                    format!(
+                        "[{} UTC] <{}> {}\n",
+                        convert_epoch_to_datetime(u128::time_millis()),
+                        record.metadata().level(),
+                        record.args()
+                    )
+                        .as_bytes(),
                 )
-                .as_bytes(),
-            )
-            .unwrap()
+                .unwrap()
+        } else {
+            self.output
+                .lock()
+                .recover()
+                .write_all(format!("{}\n", record.args()).as_bytes())
+                .unwrap()
+        }
     }
 
     fn flush(&self) {

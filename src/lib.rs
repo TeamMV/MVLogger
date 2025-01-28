@@ -20,7 +20,15 @@ lazy! {
 
 pub fn init(output: impl Write + 'static, max_level: LevelFilter) {
     LOGGER
-        .try_create(|| Logger::new(output))
+        .try_create(|| Logger::new(output, true))
+        .expect("Logger is already initialized!");
+    log::set_logger(&*LOGGER).expect("Logger is already set!");
+    log::set_max_level(max_level);
+}
+
+pub fn init_unformatted(output: impl Write + 'static, max_level: LevelFilter) {
+    LOGGER
+        .try_create(|| Logger::new(output, false))
         .expect("Logger is already initialized!");
     log::set_logger(&*LOGGER).expect("Logger is already set!");
     log::set_max_level(max_level);
@@ -41,7 +49,7 @@ pub fn clear_buffer() -> String {
 #[cfg(test)]
 mod tests {
     use crate::init;
-    use log::{debug, error, info, trace, warn, LevelFilter, Log};
+    use log::{debug, error, info, trace, warn, LevelFilter};
 
     #[test]
     fn it_works() {
